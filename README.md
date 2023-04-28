@@ -63,4 +63,4 @@ https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErT8ToNqyuxIkSkpc
 ```
 python inference.py
 ```
-# Enjoy :hugs: :clinking_glasses:	
+# Enjoy :clinking_glasses:	:clinking_glasses:	
