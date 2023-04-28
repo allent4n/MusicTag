@@ -7,7 +7,7 @@ To play with this demo, clone this repo.
 https://github.com/allent4n/auto-music-tag
 ```
 
-### Dataset (1000 of music data)
+## Dataset (1000 of music data)
 
 Given the MusicCaps data from this link (https://www.kaggle.com/datasets/googleai/musiccaps), a subset of music data (1000 music data) has been sampled for our baseline model training, the sampled music data can be downloaded from:
 
@@ -16,6 +16,17 @@ https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErUL0UhQgHBAtn8O1
 ```
 The data link contains 1000 music data samples:
 * You can download all data for training or you can simply download 10 to simply run and play with the model
+
+
+## Environment
+Run the following codes to build a virtual environment for this project:
+```
+mkdir venv
+virtualenv -p python3 venv/
+source venv/bin/activate
+pip install -r requirement.txt
+```
+
 
 ## Training
 ### Pre-training 
@@ -39,5 +50,7 @@ python music2aspect.py
 https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErT8ToNqyuxIkSkpcn3b1e4BB3ma9E2bD71R1hiTYLtvhw?e=lJ6hOB
 ```
 * Then run this code to visualize the possible tags for the testing music
-
+```
+python inference.py
+```
 ## Enjoy :)
