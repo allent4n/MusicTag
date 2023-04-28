@@ -6,7 +6,7 @@
 
 ## Our model structure (Seq2seq):
 * Input: Music data --> Spectrogram data
-* * Encoder: LSTM (Spectrogram data --> latent vector)
+* Encoder: LSTM (Spectrogram data --> latent vector)
 * Decoder: LSTM (latent vector --> Text vector)
 * Ourput: Text vector --> Music aspect text
 
