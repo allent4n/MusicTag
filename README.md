@@ -2,7 +2,7 @@
 
 #### A baseline model for automatically performing music tagging
 
-#### To play with this demo, you can go to this :point_right: [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) :point_left:	or clone this repo and follow the steps to play with this project. :point_down:	:point_down:	
+#### To play with this demo, you can go to this :point_right: [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) :point_left:	or *clone this repo and follow the steps* to play with this project. :point_down:	:point_down:	
 
 ## Our model structure (Seq2seq):
 * Input: Music data --> Spectrogram data
