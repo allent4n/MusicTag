@@ -28,14 +28,14 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
 # Constants
-DATA_DIR = "/home/allen/Documents/musiccaps/music2aspect/1k_data"
+DATA_DIR = "1k_data"
 BATCH_SIZE = 32
 SEQ_LEN = 100
 NUM_EPOCHS = 50
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 #读取数据table
-descriptions_df = pd.read_csv("/home/allen/Documents/musiccaps/music2aspect/music_text_table.csv")
+descriptions_df = pd.read_csv("music_text_table.csv")
 existing_ids = {f.stem for f in Path(DATA_DIR).glob("*.wav")}
 df = descriptions_df[descriptions_df["ytid"].isin(existing_ids)].reset_index()[["ytid","aspect_list"]]
 
@@ -166,13 +166,14 @@ def predict(model, audio_file, seq_len, device):
 
 
 # Load the best model
+
 best_model = Seq2SeqModel(input_dim, output_dim, output_dim).to(DEVICE)
-best_model.load_state_dict(torch.load('/home/allen/Documents/musiccaps/music2aspect/result/best_model.pt'))
+best_model.load_state_dict(torch.load('best_model.pt'))
 MAX_OUTPUT_LENGTH = 5  #要输出的最大词数量
 # Predict the text description for a new .wav file
 # audio_file = DATA_DIR + '/_6C2ffY_-mc.wav'   
 
-audio_file = "/home/allen/Documents/musiccaps/music2aspect/test/ZwLfj7tvpdc.wav"
+audio_file = "test/ZwLfj7tvpdc.wav"
 predicted_text = predict(best_model, audio_file, SEQ_LEN, DEVICE)
 print(f"Predicted text: {predicted_text}")
 
