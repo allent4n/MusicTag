@@ -1,8 +1,8 @@
 # auto-music-tag
 
-A baseline model for automatically performing music tagging
+#### A baseline model for automatically performing music tagging
 
-To play with this demo, you can go to this [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) or clone this repo and follow the steps to play with this project. 
+#### To play with this demo, you can go to this [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) or clone this repo and follow the steps to play with this project. 
 
 ## Our model structure:
 
