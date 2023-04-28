@@ -1,4 +1,4 @@
-# auto-music-tag :notes: :headphones:	
+# auto-music-tag :notes: :guitar: :headphones:	
 
 #### A baseline model for automatically performing music tagging
 
@@ -63,4 +63,4 @@ https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErT8ToNqyuxIkSkpc
 ```
 python inference.py
 ```
-# Enjoy :)
+# Enjoy :hugs:	:hugs: :clinking_glasses:	:clinking_glasses:	
