@@ -2,7 +2,12 @@
 
 A baseline model for automatically performing music tagging
 
-To play with this demo, clone this repo. 
+To play with this demo, you can go to this colab link (https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) or clone this repo and follow the steps to play with this project. 
+
+## Our model structure:
+
+
+## Clone this repo:
 ``` 
 https://github.com/allent4n/auto-music-tag
 ```
