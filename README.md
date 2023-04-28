@@ -4,8 +4,13 @@
 
 #### To play with this demo, you can go to this [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) or clone this repo and follow the steps to play with this project. 
 
-## Our model structure:
+## Our model structure (Seq2seq):
+#### * Input: Music data --> Spectrogram data
+#### * Encoder: LSTM (Spectrogram data --> latent vector)
+#### * Decoder: LSTM (latent vector --> Text vector)
+#### * Ourput: Text vector --> Music aspect text
 
+<img width="1009" alt="Screenshot 2023-04-27 at 23 23 00" src="https://user-images.githubusercontent.com/78404109/235127908-c2a570c9-5fff-4a68-8d70-11ee61907baa.png">
 
 ## Clone this repo:
 ``` 
