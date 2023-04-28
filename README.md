@@ -1,4 +1,4 @@
-# auto-music-tag :musical_score:	
+# auto-music-tag :notes: :headphones:	
 
 #### A baseline model for automatically performing music tagging
 
