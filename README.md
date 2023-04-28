@@ -1,4 +1,4 @@
-# auto-music-tag
+# auto-music-tag :musical_score:	
 
 #### A baseline model for automatically performing music tagging
 
