@@ -24,7 +24,7 @@ Run the following codes to build a virtual environment for this project:
 mkdir venv
 virtualenv -p python3 venv/
 source venv/bin/activate
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 
