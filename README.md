@@ -14,7 +14,7 @@
 
 ## Clone this repo:
 ``` 
-https://github.com/allent4n/auto-music-tag
+git clone https://github.com/allent4n/auto-music-tag
 ```
 
 ## Dataset (1000 of music data)
