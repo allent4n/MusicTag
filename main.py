@@ -221,7 +221,7 @@ def main():
     num_layers = 1
     hidden_size = 512
     dropout_rate = 0.2
-    BATCH_SIZE = 256
+    BATCH_SIZE = args.batch_size
     SEQ_LEN = 512
     NUM_EPOCHS = args.epochs
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
