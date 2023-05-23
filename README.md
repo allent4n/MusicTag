@@ -25,8 +25,7 @@ Given the MusicCaps data from this link (https://www.kaggle.com/datasets/googlea
 ```
 https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErUL0UhQgHBAtn8O16FZvUwBfoET5grtnqQnZqHYY9rN7Q?e=ePqhL2
 ```
-The data link contains **1000 music data samples**:
-* You can download all music data or 100 music data for training
+* The above link contains **1000 music data samples**. You can download all music data or just 100 music data for training
 
 
 ## Environment
