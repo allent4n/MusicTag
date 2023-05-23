@@ -223,7 +223,7 @@ def main():
     dropout_rate = 0.2
     BATCH_SIZE = 256
     SEQ_LEN = 512
-    NUM_EPOCHS = 200
+    NUM_EPOCHS = args.epochs
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     ### Read table ###
