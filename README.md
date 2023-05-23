@@ -77,7 +77,7 @@ python baseline.py --model "rnn"
 ## Testing with the baseline models
 * You can either download the trained model parameters from the following link or train your own model:
 ```
-https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErT8ToNqyuxIkSkpcn3b1e4BB3ma9E2bD71R1hiTYLtvhw?e=lJ6hOB
+https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/EhDl5p2Y_8JGig4nsNsXvjwB_-NRccEsWqHVSofm1KURxQ?e=a2wHzb
 ```
 * Run this code to visualize the possible tags for the testing music data
 ```
