@@ -1,6 +1,6 @@
-# auto-music-tag :notes: :guitar: :headphones:	
+# Auto-Music-Tag-Generation :notes: :guitar: :headphones:	
 
-#### A baseline model for automatically performing music tagging
+#### A project that can Automatically generating music tags
 
 #### To play with this demo, you can go to this :point_right: [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) :point_left:	or *clone this repo and follow the steps* to play with this project. :point_down:	:point_down:	
 
