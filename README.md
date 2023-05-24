@@ -82,7 +82,7 @@ python main.py
 ```
 https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErT8ToNqyuxIkSkpcn3b1e4BB3ma9E2bD71R1hiTYLtvhw?e=i7gPNT
 ```
-* Build a **result** folder to keep all downloaded files 
+* Build a **result** folder to ***keep all downloaded files*** 
 ```
 mkdir result
 ```
