@@ -296,7 +296,7 @@ def main():
         MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
 
         # Predict the text description for a new .wav file
-        audio_file = "test/ZwLfj7tvpdc.wav"
+        audio_file = f"test/{args.test_data}"
 
         # use different pred function to get the decoded text
         predicted_text = cnn_lstm_predict(best_model, audio_file, SEQ_LEN, DEVICE, MAX_OUTPUT_LENGTH, word_tokenizer)
