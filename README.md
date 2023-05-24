@@ -9,13 +9,13 @@
 #### *Clone this repo and follow the steps* to play with this project. :point_down:	:point_down:	
 
 ## Our Repo structure:
-#### result                  ---  trained model and wordconverter saved here
-#### test                    ---  store music data for model testing
-#### baseline.py             ---  train and test the baseline models
-#### main.py                 ---  train and test our proposed model (CLSTMA-MT)
-#### model.py                ---  all model class saved here
-#### parser.py               ---  arg_parser
-#### music_text_table.csv    ---  music and music tags mapping table
+* result                  ---  trained model and wordconverter saved here
+* test                    ---  store music data for model testing
+* baseline.py             ---  train and test the baseline models
+* main.py                 ---  train and test our proposed model (CLSTMA-MT)
+* model.py                ---  all model class saved here
+* parser.py               ---  arg_parser
+* music_text_table.csv    ---  music and music tags mapping table
 
 
 
