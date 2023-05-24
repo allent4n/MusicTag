@@ -35,6 +35,7 @@ https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErUL0UhQgHBAtn8O1
 ## Environment
 Run the following codes to build a **virtual environment** for this project:
 ```
+cd auto-music-tag
 mkdir venv
 virtualenv -p python3 venv/
 source venv/bin/activate
