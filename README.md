@@ -90,6 +90,8 @@ mkdir result
 ```
 python main.py --mode "test"
 ```
+* Note that if you are running in your ***Mac***, you should add ***"map_location=torch.device('cpu')"*** to the code ***"torch.load()"*** since the downloaded model is trained using GPU.
+
 
 ## Baseline Models (baseline.py)
 ### Train the baseline models
@@ -112,4 +114,6 @@ https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/EhDl5p2Y_8JGig4ns
 ```
 python baseline.py --model "rnn" --mode "test"
 ```
+* Note that if you are running in your ***Mac***, you should add ***"map_location=torch.device('cpu')"*** to the code ***"torch.load()"*** since the downloaded model is trained using GPU.
+
 # Enjoy :clinking_glasses:	:clinking_glasses:	
