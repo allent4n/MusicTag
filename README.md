@@ -29,8 +29,8 @@ Baseline:
 
 ***CLSTMA-MT***:
 
-***Loss: 2.89***
-
+| Loss | 2.89 |
+| --- |---|
 
 ## Clone this repo:
 ``` 
