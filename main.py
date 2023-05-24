@@ -276,27 +276,23 @@ def main():
             print(f"Epoch {epoch + 1}/{NUM_EPOCHS}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
-                torch.save(model.state_dict(), f'result/best_{args.model}_model.pt')
+                torch.save(model, f'result/best_{args.model}_model.pt')
         print(f"Training completed, the testing loss is {test(model, test_loader, criterion, DEVICE)}")
         
     ### Inference for CNN_LSTM model ###
     else:
-        if args.model == "cnn_lstm":
-            best_model = CNN_LSTM(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
+        
+        # load the best model        
+        best_model = torch.load(f'result/best_{args.model}_model.pt')
+        MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
 
-            # load the best model
-            best_model.load_state_dict(torch.load(f'result/best_{args.model}_model.pt'))
-            MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
+        # Predict the text description for a new .wav file
+        audio_file = "test/ZwLfj7tvpdc.wav"
 
-            # Predict the text description for a new .wav file
-            audio_file = "test/ZwLfj7tvpdc.wav"
+        # use different pred function to get the decoded text
+        predicted_text = cnn_lstm_predict(best_model, audio_file, SEQ_LEN, DEVICE, MAX_OUTPUT_LENGTH, word_tokenizer)
+        print(f"Predicted music tags are: {predicted_text}")
 
-            # use different pred function to get the decoded text
-            predicted_text = cnn_lstm_predict(best_model, audio_file, SEQ_LEN, DEVICE, MAX_OUTPUT_LENGTH, word_tokenizer)
-            print(f"Predicted music tags are: {predicted_text}")
-
-        else:
-            print('Wrong model name')
 
 if __name__ == "__main__":
     main()
