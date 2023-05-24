@@ -18,7 +18,7 @@
 
 ## Our baseline models are RNN-based Autoencoder, LSTM-based Autoencoder, GRU-based Autoencoder, CNN-RNN-based Autoencoder and CNN-GRU-based Autoencoder
 
-### The model performance results are shown below:
+### The model performance results (EntropyLoss) are shown below:
 
 Baseline:
 
