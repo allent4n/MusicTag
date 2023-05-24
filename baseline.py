@@ -359,7 +359,7 @@ def main():
         MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
 
         # Predict the text description for a new .wav file
-        audio_file = "test/ZwLfj7tvpdc.wav"
+        audio_file = f"test/{args.test_data}"
 
         # use different pred function to get the decoded text
         if args.model == "cnn_gru":
