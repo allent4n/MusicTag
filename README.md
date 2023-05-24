@@ -22,8 +22,13 @@
 
 Baseline:
 
-|         | LSTM |  GRU  |  RNN  | CNN_RNN | CNN_GRU |
-|Loss     | 4.08 | 4.42  |  4.30 |   3.8   |  3.77   |
+|          | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+|  Models | LSTM |  GRU  |  RNN  | CNN_RNN | CNN_GRU |
+|   Loss  | 4.08 | 4.42  |  4.30 |   3.8   |  3.77   |
 
 
 ***CLSTMA-MT***:
