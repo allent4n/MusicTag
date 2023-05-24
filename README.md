@@ -50,37 +50,47 @@ mkdir 1k_data
 * Then put all your downloaded music data into the **1k_data** folder.
 
 
-## CLSTMA-MT Model
+## CLSTMA-MT Model (main.py)
 ### Train the CLSTMA-MT model
 
+#### You can either download the trained model parameters from the following link or train your own model:
+
+## For training
 * run the following code to train the  model
 ```
 python main.py
 ```
 
-## Testing with the CLSTMA-MT model
-* You can either download the trained model parameters from the following link or train your own model:
+## For testing with the CLSTMA-MT model
+* Download the trained model (1000 music data and 200 epochs), and trained wordtokenizer
 ```
-https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErT8ToNqyuxIkSkpcn3b1e4BB3ma9E2bD71R1hiTYLtvhw?e=lJ6hOB
+https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/ErT8ToNqyuxIkSkpcn3b1e4BB3ma9E2bD71R1hiTYLtvhw?e=i7gPNT
+```
+* Build a **result** folder to keep all downloaded files 
+```
+mkdir result
 ```
 * Then run this code to visualize the possible tags for the testing music
 ```
 python main.py --mode "test"
 ```
 
-## Baseline Models
+## Baseline Models (baseline.py)
 ### Train the baseline models
 
-* run the following code to train the baseline models (RNN as example)
+#### You can either download the trained model parameters from the following link or train your own model:
+
+## For training
+* Run the following code to train the baseline models (**RNN as example**)
 * You can also train other baselines models (gru, lstm, cnn_rnn and cnn_gru) by replacing the rnn in the following code.
 ```
 python baseline.py --model "rnn"
 ```
 
-## Testing with the baseline models
-* You can either download the trained model parameters from the following link or train your own model:
+## For testing with the baseline models
+* Download the trained baseline models (1000 music data and 200 epochs), and trained wordtokenizer
 ```
-https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/EhDl5p2Y_8JGig4nsNsXvjwB_-NRccEsWqHVSofm1KURxQ?e=a2wHzb
+https://liveln-my.sharepoint.com/:f:/g/personal/allentan_ln_hk/EhDl5p2Y_8JGig4nsNsXvjwB_-NRccEsWqHVSofm1KURxQ?e=T0Ate7
 ```
 * Run this code to visualize the possible tags for the testing music data
 ```
