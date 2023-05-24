@@ -17,6 +17,7 @@ from librosa.feature import melspectrogram
 from sklearn.model_selection import train_test_split
 from pathlib import Path
 import os
+import pickle
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
 # extract features from audio
@@ -216,59 +217,63 @@ def main():
     
     ### Training_data path ###
     DATA_DIR = args.data_path
-    
+
     ### Model parameters ###
     num_layers = 1
     hidden_size = 512
     dropout_rate = 0.2
-    BATCH_SIZE = args.batch_size
+    BATCH_SIZE = 256
     SEQ_LEN = 512
     NUM_EPOCHS = args.epochs
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    ### Read table ###
-    descriptions_df = pd.read_csv("music_text_table.csv")
 
-    existing_ids = {f.stem for f in Path(DATA_DIR).glob("*.wav")}
-    df = descriptions_df[descriptions_df["ytid"].isin(existing_ids)].reset_index()[["ytid","aspect_list"]]
-    
-    ### Create a vocabulary from the entire 'aspect_list' column ###
-    unique_words = set()
-    for aspect_list in df['aspect_list']:
-        words = eval(aspect_list)
-        unique_words.update(words)
-
-    word_tokenizer = WordTokenizer()
-    for word in unique_words:
-        word_tokenizer.vocab[word] = len(word_tokenizer.vocab)
-    word_tokenizer.inv_vocab = {v: k for k, v in word_tokenizer.vocab.items()}
-
-    ### DataLoader ###
-    data = MusicDescriptionDataset(df, DATA_DIR, SEQ_LEN, word_tokenizer)
-    train_data, val_data = train_test_split(data, test_size=0.3, random_state=42)
-    val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=42)
-    
-    train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
-    val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
-    test_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
-    
-    ### Define Model ###
-    input_dim = train_loader.dataset[0][0].shape[1]
-    output_dim = len(word_tokenizer.vocab)
-    
-    if args.model == "cnn_lstm":
-        model = CNN_LSTM(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)       
-    else:
-        print('Wrong model name')
-
-             
-    ### Training setting ###
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
-
-    
     ### Training ###
     if args.mode == "train":
+        ### Read table ###
+        descriptions_df = pd.read_csv("music_text_table.csv")
+
+        existing_ids = {f.stem for f in Path(DATA_DIR).glob("*.wav")}
+        df = descriptions_df[descriptions_df["ytid"].isin(existing_ids)].reset_index()[["ytid","aspect_list"]]
+
+        ### Create a vocabulary from the entire 'aspect_list' column ###
+        unique_words = set()
+        for aspect_list in df['aspect_list']:
+            words = eval(aspect_list)
+            unique_words.update(words)
+
+        word_tokenizer = WordTokenizer()
+        for word in unique_words:
+            word_tokenizer.vocab[word] = len(word_tokenizer.vocab)
+        word_tokenizer.inv_vocab = {v: k for k, v in word_tokenizer.vocab.items()}
+
+        ### save the tokenizer ###
+        f = open(f"result/{args.model}_word_tokenizer.pickle", "wb")
+        pickle.dump(word_tokenizer, f)
+
+        ### DataLoader ###
+        data = MusicDescriptionDataset(df, DATA_DIR, SEQ_LEN, word_tokenizer)
+        train_data, val_data = train_test_split(data, test_size=0.3, random_state=42)
+        val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=42)
+
+        train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
+        val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
+        test_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
+
+        ### Define Model ###
+        input_dim = train_loader.dataset[0][0].shape[1]
+        output_dim = len(word_tokenizer.vocab)
+
+        if args.model == "cnn_lstm":
+            model = CNN_LSTM(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
+        else:
+            print('Wrong model name')
+
+
+        ### Training setting ###
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(model.parameters(), lr=1e-3)
+
         best_val_loss = float('inf')
         for epoch in range(NUM_EPOCHS):
             train_loss = train(model, train_loader, criterion, optimizer, DEVICE, output_dim)
@@ -276,13 +281,17 @@ def main():
             print(f"Epoch {epoch + 1}/{NUM_EPOCHS}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
+                #torch.save(model.state_dict(), f'best_{args.model}_model.pt')
                 torch.save(model, f'result/best_{args.model}_model.pt')
         print(f"Training completed, the testing loss is {test(model, test_loader, criterion, DEVICE)}")
         
     ### Inference for CNN_LSTM model ###
     else:
-        
-        # load the best model        
+
+        # load the trained tokenizer
+        word_tokenizer = pickle.load(open(f"result/{args.model}_word_tokenizer.pickle", "rb"))
+
+        # load the best model
         best_model = torch.load(f'result/best_{args.model}_model.pt')
         MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
 
@@ -292,7 +301,6 @@ def main():
         # use different pred function to get the decoded text
         predicted_text = cnn_lstm_predict(best_model, audio_file, SEQ_LEN, DEVICE, MAX_OUTPUT_LENGTH, word_tokenizer)
         print(f"Predicted music tags are: {predicted_text}")
-
 
 if __name__ == "__main__":
     main()
