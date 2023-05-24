@@ -339,7 +339,7 @@ def main():
 
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
-                torch.save(model.state_dict(), f'result/base_{args.model}_model.pt')
+                torch.save(model, f'result/base_{args.model}_model.pt')
         print(f"Training completed, the testing loss is {test(model, test_loader, criterion, DEVICE)}")
 
     ### Inference ###
@@ -357,7 +357,7 @@ def main():
             best_model = CNN_GRU(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)        
 
 
-        best_model.load_state_dict(torch.load(f'result/base_{args.model}_model.pt'))
+        best_model= torch.load(f'result/base_{args.model}_model.pt')
         MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
 
         # Predict the text description for a new .wav file
