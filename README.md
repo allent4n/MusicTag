@@ -10,7 +10,7 @@
 * **Decoder**: LSTM (latent vector --> Text vector)
 * **Output**: Text vector --> Music aspect text
 
-<img width="24" alt="image" src="https://github.com/allent4n/auto-music-tag/assets/78404109/d16b1fd9-e42e-4907-837c-9b182c57bca7">
+<img width="1037" alt="Screenshot 2023-05-24 at 19 04 12" src="https://github.com/allent4n/auto-music-tag/assets/78404109/59caaaec-58dc-4d35-85b8-f6be93269ccf">
 
 
 ## Clone this repo:
