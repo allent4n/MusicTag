@@ -276,7 +276,7 @@ def main():
             print(f"Epoch {epoch + 1}/{NUM_EPOCHS}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
-                torch.save(model.state_dict(), f'best_{args.model}_model.pt')
+                torch.save(model.state_dict(), f'result/best_{args.model}_model.pt')
         print(f"Training completed, the testing loss is {test(model, test_loader, criterion, DEVICE)}")
         
     ### Inference for CNN_LSTM model ###
@@ -285,7 +285,7 @@ def main():
             best_model = CNN_LSTM(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
 
             # load the best model
-            best_model.load_state_dict(torch.load(f'best_{args.model}_model.pt'))
+            best_model.load_state_dict(torch.load(f'result/best_{args.model}_model.pt'))
             MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
 
             # Predict the text description for a new .wav file
