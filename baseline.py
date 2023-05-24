@@ -17,6 +17,7 @@ from librosa.feature import melspectrogram
 from sklearn.model_selection import train_test_split
 from pathlib import Path
 import os
+import pickle
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 
 # extract features from audio
@@ -282,54 +283,58 @@ def main():
     NUM_EPOCHS = args.epochs
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    ### Read table ###
-    descriptions_df = pd.read_csv("music_text_table.csv")
-
-    existing_ids = {f.stem for f in Path(DATA_DIR).glob("*.wav")}
-    df = descriptions_df[descriptions_df["ytid"].isin(existing_ids)].reset_index()[["ytid","aspect_list"]]
-    
-    ### Create a vocabulary from the entire 'aspect_list' column ###
-    unique_words = set()
-    for aspect_list in df['aspect_list']:
-        words = eval(aspect_list)
-        unique_words.update(words)
-
-    word_tokenizer = WordTokenizer()
-    for word in unique_words:
-        word_tokenizer.vocab[word] = len(word_tokenizer.vocab)
-    word_tokenizer.inv_vocab = {v: k for k, v in word_tokenizer.vocab.items()}
-
-    ### DataLoader ###
-    data = MusicDescriptionDataset(df, DATA_DIR, SEQ_LEN, word_tokenizer)
-    train_data, val_data = train_test_split(data, test_size=0.3, random_state=42)
-    val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=42)
-    
-    train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
-    val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
-    test_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
-    
-    ### Define Model ###
-    input_dim = train_loader.dataset[0][0].shape[1]
-    output_dim = len(word_tokenizer.vocab)
-    
-    if args.model == "lstm":
-        model = LSTM(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
-    elif args.model == "gru":
-        model = GRU(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
-    elif args.model == "cnn_rnn":
-        model = CNN_RNN(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)       
-    elif args.model == "cnn_gru":
-        model = CNN_GRU(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)    
-    elif args.model == "rnn":
-        model = RNN(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
-                
-    ### Training setting ###
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
-    #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=5, verbose=True)
-    
     ### Training ###
     if args.mode == "train":
+        ### Read table ###
+        descriptions_df = pd.read_csv("music_text_table.csv")
+
+        existing_ids = {f.stem for f in Path(DATA_DIR).glob("*.wav")}
+        df = descriptions_df[descriptions_df["ytid"].isin(existing_ids)].reset_index()[["ytid","aspect_list"]]
+
+        ### Create a vocabulary from the entire 'aspect_list' column ###
+        unique_words = set()
+        for aspect_list in df['aspect_list']:
+            words = eval(aspect_list)
+            unique_words.update(words)
+
+        word_tokenizer = WordTokenizer()
+        for word in unique_words:
+            word_tokenizer.vocab[word] = len(word_tokenizer.vocab)
+        word_tokenizer.inv_vocab = {v: k for k, v in word_tokenizer.vocab.items()}
+
+        ### save the tokenizer ###
+        f = open(f"result/{args.model}_word_tokenizer.pickle", "wb")
+        pickle.dump(word_tokenizer, f)
+
+        ### DataLoader ###
+        data = MusicDescriptionDataset(df, DATA_DIR, SEQ_LEN, word_tokenizer)
+        train_data, val_data = train_test_split(data, test_size=0.3, random_state=42)
+        val_data, test_data = train_test_split(val_data, test_size=0.5, random_state=42)
+
+        train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
+        val_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
+        test_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False)
+
+        ### Define Model ###
+        input_dim = train_loader.dataset[0][0].shape[1]
+        output_dim = len(word_tokenizer.vocab)
+
+        if args.model == "lstm":
+            model = LSTM(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
+        elif args.model == "gru":
+            model = GRU(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
+        elif args.model == "cnn_rnn":
+            model = CNN_RNN(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
+        elif args.model == "cnn_gru":
+            model = CNN_GRU(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
+        elif args.model == "rnn":
+            model = RNN(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
+
+        ### Training setting ###
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(model.parameters(), lr=1e-3)
+        #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=5, verbose=True)
+
         best_val_loss = float('inf')
         for epoch in range(NUM_EPOCHS):
             train_loss = train(model, train_loader, criterion, optimizer, DEVICE, output_dim)
@@ -344,20 +349,13 @@ def main():
 
     ### Inference ###
     else:
-        # Define model structure
-        if args.model == "rnn":
-            best_model = RNN(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
-        elif args.model == "lstm":
-            best_model = LSTM(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
-        elif args.model == "gru":
-            best_model = GRU(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)
-        elif args.model == "cnn_rnn":
-            best_model = CNN_RNN(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)        
-        elif args.model == "cnn_gru":
-            best_model = CNN_GRU(input_dim, hidden_size, output_dim, num_layers, dropout_rate).to(DEVICE)        
 
+        # load the trained tokenizer
+        word_tokenizer = pickle.load(open(f"result/{args.model}_word_tokenizer.pickle", "rb"))
 
-        best_model= torch.load(f'result/base_{args.model}_model.pt')
+        # load the best model
+        best_model = torch.load(f'result/base_{args.model}_model.pt')
+
         MAX_OUTPUT_LENGTH = 5  # Maximum number of words to output
 
         # Predict the text description for a new .wav file
