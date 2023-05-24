@@ -27,9 +27,9 @@
 
 <img width="1037" alt="Screenshot 2023-05-24 at 19 04 12" src="https://github.com/allent4n/auto-music-tag/assets/78404109/59caaaec-58dc-4d35-85b8-f6be93269ccf">
 
-## Our baseline models are RNN-based Autoencoder, LSTM-based Autoencoder, GRU-based Autoencoder, CNN-RNN-based Autoencoder and CNN-GRU-based Autoencoder
+## The model performance results (EntropyLoss) 
 
-### The model performance results (EntropyLoss) are shown below:
+###  Our baseline models are RNN-based Autoencoder, LSTM-based Autoencoder, GRU-based Autoencoder, CNN-RNN-based Autoencoder and CNN-GRU-based Autoencoder, the model performance results are shown below:
 
 Baseline:
 
