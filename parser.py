@@ -15,7 +15,6 @@ def args_parser():
     parser.add_argument("--mode", type=str, default="train", help="train is training mode and test is testing mode")
     parser.add_argument("--model", type=str, default="cnn_lstm", help="selecting model")
     parser.add_argument("--epochs", type=int, default=200, help="model training epochs")
-    parser.add_argument("--batch_size", type=int, default=512, help="model training batch_size")
     
     args = parser.parse_args()
     return args
