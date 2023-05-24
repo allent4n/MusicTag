@@ -20,6 +20,16 @@
 
 ### The model performance results are shown below:
 
+Baseline:
+
+         | LSTM |  GRU  |  RNN  | CNN_RNN | CNN_GRU |
+Loss     | 4.08 | 4.42  |  4.30 |   3.8   |  3.77   |
+
+
+***CLSTMA-MT***:
+
+***Loss: 2.89***
+
 
 ## Clone this repo:
 ``` 
