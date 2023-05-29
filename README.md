@@ -2,7 +2,7 @@
 
 ## We proposed a new model (***CNN-LSTM Autoencoder for Musci Tagging, CLSTMA-MT***) that can Automatically generating music tags
 
-#### To train the whole process without download this repo and visualize the performance of our CLSTMA-MT model, you can go to this :point_right: [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) :point_left:	
+#### To train the whole process without download this repo, and visualize the performance of our CLSTMA-MT model, you can go to this :point_right: [colab link](https://colab.research.google.com/drive/10hhthqFWaMbe_oWFYN2nw12uTNYBAYgc?usp=sharing) :point_left:	
 
 ### OR
 
