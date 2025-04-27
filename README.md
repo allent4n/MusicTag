@@ -1,4 +1,4 @@
-# Music-Tagging-PyTorch :notes: :guitar: :headphones:	
+# MusicTag :notes: :guitar: :headphones:	
 
 ## We proposed a new model (***CNN-LSTM Autoencoder for Musci Tagging, CLSTMA-MT***) that can Automatically generating music tags, presentation video is [here](https://youtu.be/lgOjLV5_AJE).
 
